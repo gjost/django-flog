@@ -1,0 +1,31 @@
+{% load media %}
+{% block content %}
+<h1>
+<form name="entry" method="post" action="/flog/">
+<a href="/">home</a>
+&raquo; <a href="/flog/">flog</a> &nbsp;
+entry&nbsp;<input name="txt" id="id_txt" type="text"/>
+<input type="submit" value="flog"/>
+</form>
+</h1>
+
+<pre>
+lb     {% if day.weight_lbs %}{{ day.weight_lbs }}{% endif %}
+cal    {% if day.calories %}{{ day.calories }}{% endif %}
+coffee {% if day.coffee_cups %}{{ day.coffee_cups }}{% endif %}
+sleep  {% if day.hours_slept %}{{ day.hours_slept }}{% endif %}
+</pre>
+
+<pre>{% for s in swallows %}
+[<a href="/admin/flog/swallow/{{ s.id }}/">edit</a>] {{ s.created }} {{ s.title }} {{ s.serving_size }} {{ s.tags }} {{ s.calories }}{% endfor %}
+</pre>
+
+<pre>{% for e in entries %}
+[<a href="/admin/flog/entry/{{ e.id }}/">edit</a>] {{ e.created }} {{ e.txt }}{% endfor %}
+</pre>
+
+<pre>
+p1 {{ day.p1 }}
+</pre>
+
+{% endblock content %}
