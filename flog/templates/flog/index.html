@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load media %}
+
+{% block breadcrumbs %}{{ block.super }}
+&raquo; flog
+{% endblock %}
+
+{% block content %}
+
+<form name="entry" method="post" action="">{% csrf_token %}
+<input name="txt" id="id_txt" type="text" size="60"/>
+<input type="submit" value="flog"/>
+<br/>
+{{ form.txt.help_text|safe }}
+</form>
+
+<pre>{% for s in swallows %}
+[<a href="/admin/flog/swallow/{{ s.id }}/">edit</a>][<a href="{{ s.created|date:"Y/m/d" }}/">day</a>] {{ s.created }} {{ s.title }} {{ s.serving_size }} {{ s.tags }} {{ s.calories }}{% endfor %}
+</pre>
+
+<pre>{% for e in entries %}
+[<a href="/admin/flog/entry/{{ e.id }}/">edit</a>][<a href="{{ e.created|date:"Y/m/d" }}/">day</a>] {{ e.created }} {{ e.txt }}{% endfor %}
+</pre>
+
+{% endblock content %}
